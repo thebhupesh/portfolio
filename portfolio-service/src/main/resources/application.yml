@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: portfolio
+  profiles:
+    active: local
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+  
+aws:
+  region: ap-south-1
+  dynamodb:
+    table: portfolio
+
+server:
+  servlet:
+    context-path: /portfolio/api
