@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import com.bhupesh.portfolio.model.CertificationModel;
-import com.bhupesh.portfolio.repository.generic.DynamoDBRepository;
+import com.bhupesh.portfolio.repository.generic.DynamoDBGenericRepository;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 
 @Repository 
-public class CertificationRepository extends DynamoDBRepository<CertificationModel> {
+public class CertificationRepository extends DynamoDBGenericRepository<CertificationModel> {
 
     public CertificationRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table}") String tableName) {
 

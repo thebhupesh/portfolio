@@ -1,0 +1,12 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Portfolio Service (local)",
+            "request": "launch",
+            "mainClass": "com.bhupesh.portfolio.PortfolioApplication",
+            "args": "--spring.profiles.active=local"
+        }
+    ]
+}

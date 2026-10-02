@@ -11,7 +11,7 @@
 	<groupId>com.bhupesh</groupId>
 	<artifactId>portfolio-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>portfolio-application-service</name>
+	<name>Portfolio Service</name>
 	<description>Portfolio application service</description>
 	<url>https://bhupesh.org/portfolio/api/</url>
 	<licenses>
@@ -42,7 +42,23 @@
 		</dependency>
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>sso</artifactId>
+			<version>2.55.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>ssooidc</artifactId>
+			<version>2.55.3</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>dynamodb-enhanced</artifactId>
+			<version>2.55.3</version>
+		</dependency>
+		<dependency>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>sqs</artifactId>
 			<version>2.55.3</version>
 		</dependency>
 

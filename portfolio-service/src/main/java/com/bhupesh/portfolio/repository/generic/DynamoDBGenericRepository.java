@@ -2,21 +2,18 @@ package com.bhupesh.portfolio.repository.generic;
 
 import java.util.List;
 
-import org.springframework.stereotype.Repository;
-
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.Key;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 import software.amazon.awssdk.enhanced.dynamodb.model.QueryConditional;
 
-@Repository
-public class DynamoDBRepository<T> {
+public class DynamoDBGenericRepository<T> {
 
     private final DynamoDbTable<T> table;
     private final String type;
 
-    public DynamoDBRepository(DynamoDbEnhancedClient client, String tableName,String type, Class<T> beanClass) {
+    public DynamoDBGenericRepository(DynamoDbEnhancedClient client, String tableName, String type, Class<T> beanClass) {
 
         this.table = client.table(
                 tableName,

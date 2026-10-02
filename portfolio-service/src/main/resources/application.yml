@@ -1,8 +1,6 @@
 spring:
   application:
     name: portfolio
-  profiles:
-    active: local
 
 springdoc:
   api-docs:
@@ -14,6 +12,8 @@ aws:
   region: ap-south-1
   dynamodb:
     table: portfolio
+  sqs:
+    message-queue-url: ${MESSAGE_QUEUE_URL}
 
 server:
   servlet:

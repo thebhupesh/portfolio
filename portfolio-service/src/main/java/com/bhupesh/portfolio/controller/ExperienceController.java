@@ -2,9 +2,9 @@ package com.bhupesh.portfolio.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,10 +15,13 @@ import com.bhupesh.portfolio.service.ExperienceService;
 @RequestMapping("/v1/experience")
 public class ExperienceController {
     
-    @Autowired 
-    private ExperienceService experienceService;
+    private final ExperienceService experienceService;
 
-    @GetMapping("/")
+    private ExperienceController(ExperienceService experienceService) {
+        this.experienceService = experienceService;
+    }
+
+    @GetMapping
     public ResponseEntity<List<ExperienceModel>> getExperiences() {
         List<ExperienceModel> experiences = experienceService.fetchExperiences();
 
@@ -30,7 +33,7 @@ public class ExperienceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExperienceModel> getExperienceById(String id) {
+    public ResponseEntity<ExperienceModel> getExperienceById(@PathVariable String id) {
         ExperienceModel experience = experienceService.fetchExperienceById(id);
 
         if(experience == null) {

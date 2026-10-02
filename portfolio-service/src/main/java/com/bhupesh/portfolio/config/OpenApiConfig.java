@@ -8,20 +8,25 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 
 @Configuration 
-public class OpenApiConfig {
+public class OpenAPIConfig {
 
-    @Value("${springdoc.api-docs.title}")
-    private String API_TITLE;
+    private final String apiTitle;
+    private final String apiDescription;
+    private final String apiVersion;
 
-    @Value("${springdoc.api-docs.description}")
-    private String API_DESCRIPTION;
+    public OpenAPIConfig(@Value("${springdoc.api-docs.title}") String apiTitle,
+                         @Value("${springdoc.api-docs.description}") String apiDescription) {
+        this.apiTitle = apiTitle;
+        this.apiDescription = apiDescription;
+        this.apiVersion = "1.0";
+    }
     
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title(API_TITLE)
-                        .version("1.0")
-                        .description(API_DESCRIPTION));
+                        .title(apiTitle)
+                        .version(apiVersion)
+                        .description(apiDescription));
     }
 }

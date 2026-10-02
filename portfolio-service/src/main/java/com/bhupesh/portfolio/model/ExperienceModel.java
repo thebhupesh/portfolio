@@ -28,6 +28,7 @@ public class ExperienceModel {
     private String description;
     private String techStack;
     private List<Achievement> achievements;
+    private String logo;
 
     @DynamoDbPartitionKey
     public String getType() {

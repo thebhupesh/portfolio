@@ -1,6 +1,5 @@
 package com.bhupesh.portfolio.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +12,13 @@ import com.bhupesh.portfolio.service.DetailService;
 @RequestMapping("/v1/detail")
 public class DetailController {
 
-    @Autowired
-    DetailService detailService;
+    private final DetailService detailService;
 
-    @GetMapping("/")
+    public DetailController(DetailService detailService) {
+        this.detailService = detailService;
+    }
+
+    @GetMapping
     ResponseEntity<DetailModel> getDetail() {
         DetailModel detail = detailService.fetchDetail();
 
