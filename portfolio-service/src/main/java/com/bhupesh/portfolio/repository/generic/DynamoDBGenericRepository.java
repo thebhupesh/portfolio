@@ -44,4 +44,21 @@ public class DynamoDBGenericRepository<T> {
 
         return table.getItem(key);
     }
+
+    public void save(T item) {
+        table.putItem(item);
+    }
+
+    public void update(T item) {
+        table.updateItem(item);
+    }
+
+    public void deleteById(String id) {
+        Key key = Key.builder()
+                .partitionValue(type)
+                .sortValue(id)
+                .build();
+
+        table.deleteItem(key);
+    }
 }

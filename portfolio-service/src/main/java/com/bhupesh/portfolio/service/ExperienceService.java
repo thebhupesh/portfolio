@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bhupesh.portfolio.model.ExperienceModel;
+import com.bhupesh.portfolio.model.Experience;
 import com.bhupesh.portfolio.repository.ExperienceRepository;
 
 @Service 
@@ -16,11 +16,11 @@ public class ExperienceService {
         this.experienceRepository = experienceRepository;
     }
 
-    public List<ExperienceModel> fetchExperiences() {
+    public List<Experience> fetchExperiences() {
         return experienceRepository.findAll();
     }
 
-    public ExperienceModel fetchExperienceById(String id) {
+    public Experience fetchExperienceById(String id) {
         return experienceRepository.findById(id);
     }
 }

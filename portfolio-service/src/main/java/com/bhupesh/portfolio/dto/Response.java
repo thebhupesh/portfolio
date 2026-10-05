@@ -1,14 +1,18 @@
-package com.bhupesh.portfolio.model;
+package com.bhupesh.portfolio.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor 
-public class ResponseModel {
+@Builder 
+public class Response<T> {
     
-    String status;
+    Boolean success;
     String message;
+    Integer count;
+    T data;
 }

@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bhupesh.portfolio.model.ProjectModel;
+import com.bhupesh.portfolio.dto.Response;
+import com.bhupesh.portfolio.model.Project;
 import com.bhupesh.portfolio.service.ProjectService;
 
 @RestController 
@@ -22,25 +23,32 @@ public class ProjectController {
     }
 
     @GetMapping
-    ResponseEntity<List<ProjectModel>> getProjects() {
-        List<ProjectModel> projects = projectService.fetchProjects();
+    ResponseEntity<Response<List<Project>>> getProjects() {
+        List<Project> projects = projectService.fetchProjects();
 
         if(projects == null || projects.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(projects);
+        return ResponseEntity.ok(Response.<List<Project>>builder()
+                .success(true)
+                .data(projects)
+                .count(projects.size())
+                .build());
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<ProjectModel> getProjectById(@PathVariable String id) {
-        ProjectModel project = projectService.fetchProjectById(id);
+    ResponseEntity<Response<Project>> getProjectById(@PathVariable String id) {
+        Project project = projectService.fetchProjectById(id);
 
         if(project == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(project);
+        return ResponseEntity.ok(Response.<Project>builder()
+                .success(true)
+                .data(project)
+                .build());
     }
 
     //TODO: Add POST, PUT, DELETE endpoints for project management

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: portfolio
+    name: portfolio-service
 
 springdoc:
   api-docs:
@@ -9,12 +9,14 @@ springdoc:
     enabled: false
   
 aws:
-  region: ap-south-1
+  region: ${AWS_REGION}
   dynamodb:
-    table: portfolio
+    table-name: ${AWS_DYNAMODB_TABLE_NAME}
   sqs:
-    message-queue-url: ${MESSAGE_QUEUE_URL}
+    message-queue-url: ${AWS_SQS_MESSAGE_QUEUE_URL}
+  s3:
+    bucket-name: ${AWS_S3_BUCKET_NAME}
 
 server:
   servlet:
-    context-path: /portfolio/api
+    context-path: ${CONTEXT_PATH}

@@ -1,10 +1,12 @@
 package com.bhupesh.portfolio.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.bhupesh.portfolio.model.MessageModel;
-import com.bhupesh.portfolio.model.ResponseModel;
+import com.bhupesh.portfolio.model.Message;
 
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sqs.model.SendMessageRequest;
@@ -16,16 +18,12 @@ public class MessageService {
     private final SqsClient sqsClient;
     private final String queueUrl;
 
-    public MessageService(
-            SqsClient sqsClient,
-            @Value("${aws.sqs.message-queue-url}") String queueUrl
-    ) {
+    public MessageService(SqsClient sqsClient, @Value("${aws.sqs.message-queue-url}") String queueUrl) {
         this.sqsClient = sqsClient;
         this.queueUrl = queueUrl;
     }
 
-    public void send(MessageModel message) {
-
+    public void send(Message message) {
         String body = new ObjectMapper()
                 .writeValueAsString(message);
 
@@ -38,7 +36,7 @@ public class MessageService {
         sqsClient.sendMessage(request);
     }
 
-    public ResponseModel isValid(MessageModel message) {
-        return new ResponseModel("success", "Message is valid");
+    public List<String> isValidMessage(Message message) {
+        return new ArrayList<>();
     }
 }

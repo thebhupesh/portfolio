@@ -14,8 +14,7 @@ public class OpenAPIConfig {
     private final String apiDescription;
     private final String apiVersion;
 
-    public OpenAPIConfig(@Value("${springdoc.api-docs.title}") String apiTitle,
-                         @Value("${springdoc.api-docs.description}") String apiDescription) {
+    public OpenAPIConfig(@Value("${springdoc.api-docs.title}") String apiTitle, @Value("${springdoc.api-docs.description}") String apiDescription) {
         this.apiTitle = apiTitle;
         this.apiDescription = apiDescription;
         this.apiVersion = "1.0";

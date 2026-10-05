@@ -2,7 +2,7 @@ package com.bhupesh.portfolio.service;
 
 import org.springframework.stereotype.Service;
 
-import com.bhupesh.portfolio.model.DetailModel;
+import com.bhupesh.portfolio.model.Detail;
 import com.bhupesh.portfolio.repository.DetailRepository;
 
 @Service 
@@ -14,11 +14,16 @@ public class DetailService {
         this.detailRepository = detailRepository;
     }
 
-    public DetailModel fetchDetail() {
-        return detailRepository.findById("1");
+    public Detail fetchDetails() {
+        return detailRepository.findAll().stream().findFirst().orElse(null);
     }
 
     public String fetchName() {
-        return this.fetchDetail().getName();
+        Detail detail = this.fetchDetails();
+        if (detail == null) {
+            return null;
+        }
+
+        return detail.getName();
     }
 }

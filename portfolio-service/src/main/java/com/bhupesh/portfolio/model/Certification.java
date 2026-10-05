@@ -2,10 +2,12 @@ package com.bhupesh.portfolio.model;
 
 import java.util.List;
 
+import com.bhupesh.portfolio.model.common.BaseModel;
 import com.bhupesh.portfolio.model.common.Link;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute;
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
@@ -14,12 +16,11 @@ import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbSortK
 
 @DynamoDbBean
 @Data 
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor 
 @AllArgsConstructor
-public class CertificationModel {
+public class Certification extends BaseModel {
     
-    private String type;
-    private String id;
     private String name;
     private String provider;
     private String issueDate;
@@ -30,12 +31,12 @@ public class CertificationModel {
 
     @DynamoDbPartitionKey
     public String getType() {
-        return type;
+        return super.getType();
     }
 
     @DynamoDbSortKey
     public String getId() {
-        return id;
+        return super.getId();
     }
 
     @DynamoDbAttribute("issue_date")

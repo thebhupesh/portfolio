@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bhupesh.portfolio.model.CertificationModel;
+import com.bhupesh.portfolio.dto.Response;
+import com.bhupesh.portfolio.model.Certification;
 import com.bhupesh.portfolio.service.CertificationService;
 
 @RestController 
@@ -22,26 +23,31 @@ public class CertificationController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CertificationModel>> getCertifications() {
-        List<CertificationModel> certifications = certificationService.fetchCertifications();
+    public ResponseEntity<Response<List<Certification>>> getCertifications() {
+        List<Certification> certifications = certificationService.fetchCertifications();
 
         if(certifications == null || certifications.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return ResponseEntity.ok(certifications);
+        return ResponseEntity.ok(Response.<List<Certification>>builder()
+                .success(true)
+                .data(certifications)
+                .count(certifications.size())
+                .build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CertificationModel> getCertificationById(@PathVariable String id) {
-        CertificationModel certification = certificationService.fetchCertificationById(id);
+    public ResponseEntity<Response<Certification>> getCertificationById(@PathVariable String id) {
+        Certification certification = certificationService.fetchCertificationById(id);
 
         if(certification == null) {
             return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(certification);
+        return ResponseEntity.ok(Response.<Certification>builder()
+                .success(true)
+                .data(certification)
+                .build());
     }
-
-    //TODO: Add POST, PUT, DELETE endpoints for project management
 }

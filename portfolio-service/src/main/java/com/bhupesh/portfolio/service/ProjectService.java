@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.bhupesh.portfolio.model.ProjectModel;
+import com.bhupesh.portfolio.model.Project;
 import com.bhupesh.portfolio.repository.ProjectRepository;
 
 @Service 
@@ -16,11 +16,11 @@ public class ProjectService {
         this.projectRepository = projectRepository;
     }
 
-    public List<ProjectModel> fetchProjects() {
+    public List<Project> fetchProjects() {
         return projectRepository.findAll();
     }
 
-    public ProjectModel fetchProjectById(String id) {
+    public Project fetchProjectById(String id) {
         return projectRepository.findById(id);
     }
 }
