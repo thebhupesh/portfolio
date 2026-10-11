@@ -1,18 +1,10 @@
 package com.bhupesh.portfolio.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-@Data 
-@NoArgsConstructor 
-@AllArgsConstructor 
+import lombok.Builder;
+
 @Builder 
-public class Response<T> {
-    
-    Boolean success;
-    String message;
-    Integer count;
-    T data;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public record Response<T>(Boolean success, String message, Integer count, T data) {
 }

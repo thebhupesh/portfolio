@@ -39,7 +39,7 @@ def lambda_handler(event, context):
 def save_message(message):
     table = dynamodb.Table(os.environ["TABLE_NAME"])
     item = {
-        "type": message["type"],
+        "type": "message",
         "id": message["id"],
         "sender_name": message["senderName"],
         "sender_email": message["senderEmail"],

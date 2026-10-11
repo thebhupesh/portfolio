@@ -1,4 +1,4 @@
-package com.bhupesh.portfolio.controller;
+package com.bhupesh.portfolio.s3;
 
 import java.io.IOException;
 
@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.bhupesh.portfolio.dto.FileUploadResponse;
 import com.bhupesh.portfolio.dto.Response;
-import com.bhupesh.portfolio.service.s3Service;
 
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -33,29 +31,22 @@ public class s3Controller {
     }
 
     @PostMapping(value ="/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Response<?>> uploadFile(@RequestParam MultipartFile file, @RequestParam String type) {
-        try {
-            return ResponseEntity.ok()
-                    .body(Response.<FileUploadResponse>builder()
-                            .success(true)
-                            .message("File uploaded successfully")
-                            .data(s3Service.upload(file, type))
-                    .build());
-        } catch (IOException e) {
-            return ResponseEntity.badRequest()
-                    .body(Response.<IOException>builder()
-                            .success(false)
-                            .message("Error uploading file")
-                            .data(e)
-                            .build());
-        }
+    public ResponseEntity<Response<?>> uploadFile(@RequestParam MultipartFile file, @RequestParam String type)
+            throws IOException {
+        return ResponseEntity.ok()
+                .body(Response.<s3UploadResponse>builder()
+                        .success(true)
+                        .message("File uploaded successfully")
+                        .data(s3Service.upload(file, type))
+                .build());
     }
 
     @GetMapping("/download/{type}/{key}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String type, @PathVariable String key) throws IOException {
-        ResponseInputStream<GetObjectResponse> stream = s3Service.download(type, key);
-        byte[] bytes = stream.readAllBytes();
-
+        byte[] bytes;
+        try (ResponseInputStream<GetObjectResponse> stream = s3Service.download(type, key)) {
+            bytes = stream.readAllBytes();
+        }
         if (bytes.length == 0) {
             return ResponseEntity.notFound().build();
         }

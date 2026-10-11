@@ -1,6 +1,7 @@
 package com.bhupesh.portfolio.repository.generic;
 
 import java.util.List;
+import java.util.Optional;
 
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
@@ -14,16 +15,11 @@ public class DynamoDBGenericRepository<T> {
     private final String type;
 
     public DynamoDBGenericRepository(DynamoDbEnhancedClient client, String tableName, String type, Class<T> beanClass) {
-
-        this.table = client.table(
-                tableName,
-                TableSchema.fromBean(beanClass));
-
+        this.table = client.table(tableName, TableSchema.fromBean(beanClass));
         this.type = type;
     }
 
     public List<T> findAll() {
-
         QueryConditional condition = QueryConditional.keyEqualTo(
                 Key.builder()
                         .partitionValue(type)
@@ -35,14 +31,13 @@ public class DynamoDBGenericRepository<T> {
                 .toList();
     }
 
-    public T findById(String id) {
-
+    public Optional<T> findById(String id) {
         Key key = Key.builder()
                 .partitionValue(type)
                 .sortValue(id)
                 .build();
 
-        return table.getItem(key);
+        return Optional.ofNullable(table.getItem(key));
     }
 
     public void save(T item) {

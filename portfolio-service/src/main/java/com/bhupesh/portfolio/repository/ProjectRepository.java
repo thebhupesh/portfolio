@@ -11,8 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 @Repository
 public class ProjectRepository extends DynamoDBGenericRepository<Project> {
 
-    public ProjectRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+    private static final String PROJECT_RECORD_TYPE = "project";
 
-        super(client, tableName, "project", Project.class);
+    public ProjectRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+        super(client, tableName, PROJECT_RECORD_TYPE, Project.class);
     }
 }

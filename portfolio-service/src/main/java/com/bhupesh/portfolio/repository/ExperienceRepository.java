@@ -11,8 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 @Repository 
 public class ExperienceRepository extends DynamoDBGenericRepository<Experience> {
 
-    public ExperienceRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+    private static final String EXPERIENCE_RECORD_TYPE = "experience";
 
-        super(client, tableName, "experience", Experience.class);
+    public ExperienceRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+        super(client, tableName, EXPERIENCE_RECORD_TYPE, Experience.class);
     }
 }

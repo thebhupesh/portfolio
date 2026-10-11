@@ -11,8 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 @Repository 
 public class CertificationRepository extends DynamoDBGenericRepository<Certification> {
 
-    public CertificationRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+    private static final String CERTIFICATION_RECORD_TYPE = "certification";
 
-        super(client, tableName, "certification", Certification.class);
+    public CertificationRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+        super(client, tableName, CERTIFICATION_RECORD_TYPE, Certification.class);
     }
 }

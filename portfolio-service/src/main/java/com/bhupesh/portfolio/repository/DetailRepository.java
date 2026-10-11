@@ -11,8 +11,9 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 @Repository
 public class DetailRepository extends DynamoDBGenericRepository<Detail> {
 
-    public DetailRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+    private static final String DETAIL_RECORD_TYPE = "detail";
 
-        super(client, tableName, "detail", Detail.class);
+    public DetailRepository(DynamoDbEnhancedClient client, @Value("${aws.dynamodb.table-name}") String tableName) {
+        super(client, tableName, DETAIL_RECORD_TYPE, Detail.class);
     }
 }

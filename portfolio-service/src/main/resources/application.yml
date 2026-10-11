@@ -17,6 +17,33 @@ aws:
   s3:
     bucket-name: ${AWS_S3_BUCKET_NAME}
 
+security:
+  bcrypt-strength: ${SECURITY_BCRYPT_STRENGTH}
+  credentials:
+    record-type: ${SECURITY_CREDENTIALS_RECORD_TYPE:credential}
+  jwt:
+    signing-key-base64: ${JWT_SIGNING_KEY}
+    ttl: ${JWT_TOKEN_TTL}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS}
+
+# spam-protection:
+#   counter-record-type: ${SPAM_COUNTER_RECORD_TYPE:spam_counter}
+#   counter-expiration-grace-seconds: ${SPAM_COUNTER_EXPIRATION_GRACE_SECONDS:86400}
+#   ip:
+#     max-requests: ${SPAM_IP_MAX_REQUESTS:10}
+#     window-seconds: ${SPAM_IP_WINDOW_SECONDS:3600}
+#   email:
+#     max-messages-per-week: ${SPAM_EMAIL_MAX_MESSAGES_PER_WEEK:5}
+#     window-seconds: ${SPAM_EMAIL_WINDOW_SECONDS:604800}
+
+# cloudflare:
+#   turnstile:
+#     siteverify-url: ${TURNSTILE_SITEVERIFY_URL:https://challenges.cloudflare.com/turnstile/v0/siteverify}
+#     secret-key: ${TURNSTILE_SECRET_KEY:}
+#     allowed-hostnames: ${TURNSTILE_ALLOWED_HOSTNAMES:}
+#     expected-action: ${TURNSTILE_EXPECTED_ACTION:contact}
+
 server:
   servlet:
     context-path: ${CONTEXT_PATH}
